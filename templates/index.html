@@ -1,0 +1,116 @@
+{% extends "base.html" %} 
+{% block title %}Главная{% endblock %} 
+{% block content %} 
+
+{% if not session.get('user_id') %}
+<section class="about">
+  <div class="text-container">
+    <h1 class="about-title">
+      Session navigator - твой помощник <br />для подготовки к сессии
+    </h1>
+    <div class="text-button">
+      <p class="about-text">
+        Следи за заданиями, дедлайнами <br />и своей успеваемостью без стресса и
+        перегруза.
+      </p>
+      <button class="about-button">
+        <a class="about-link" href="{{ url_for('login') }}"
+          >Хочу попробовать!</a
+        >
+      </button>
+    </div>
+  </div>
+</section>
+<section class="about-image">
+  <img
+    src="{{ url_for('static', filename='about.png') }}"
+    alt="картинка карты"
+  />
+</section>
+<section class="features">
+  <div class="features-header">
+    <h2>Учёба под контролем</h2>
+    <p>
+      Все предметы, задания и дедлайны в одном месте — чтобы подготовка к сессии
+      была понятной и спокойной.
+    </p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <span class="feature-icon">✓</span>
+      <div>
+        <h3>Предметы</h3>
+        <p>Полный список дисциплин, которые нужно закрыть в этом семестре.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <span class="feature-icon">✓</span>
+      <div>
+        <h3>Задания и дедлайны</h3>
+        <p>
+          Все задания с датами сдачи, чтобы ничего не забыть в последний момент.
+        </p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <span class="feature-icon">✓</span>
+      <div>
+        <h3>План подготовки</h3>
+        <p>Понятная структура учёбы без перегруза и хаоса.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <span class="feature-icon">✓</span>
+      <div>
+        <h3>Прогресс</h3>
+        <p>Отмечайте выполненные задания и наблюдайте за своим продвижением.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="forecast">
+  <div class="forecast-header">
+    <h2>Прогноз подготовки к сессии</h2>
+    <p>
+      Оцените свой текущий прогресс и поймите, насколько уверенно вы движетесь к
+      закрытию сессии.
+    </p>
+  </div>
+
+  <div class="forecast-cards">
+    <div class="forecast-card">
+      <div class="forecast-step">1</div>
+      <h3>Выполненные задания</h3>
+      <p>
+        Анализ того, какая часть заданий уже закрыта и как это влияет на общий
+        прогресс.
+      </p>
+    </div>
+
+    <div class="forecast-card">
+      <div class="forecast-step">2</div>
+      <h3>Дедлайны</h3>
+      <p>
+        Проверка сроков сдачи и понимание, какие задачи требуют внимания в
+        первую очередь.
+      </p>
+    </div>
+
+    <div class="forecast-card">
+      <div class="forecast-step">3</div>
+      <h3>Общая картина</h3>
+      <p>
+        Спокойная оценка подготовки по всем предметам без лишнего давления и
+        тревоги.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% endif %} 
+{% endblock %}

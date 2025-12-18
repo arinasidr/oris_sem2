@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Предметы{% endblock %}
+
+{% block content %}
+<section class="subjects">
+    <h2 class="subject-title">Мои предметы на сессии</h2>
+
+    <button class="subject-add-btn"><a href="{{ url_for('add_subjects') }}">+ Добавить предмет</a></button>
+
+    {% if subjects %}
+    <ul class="subjects-list">
+        {% for subject in subjects %}
+            <li>
+                <a class="subject-link" href="{{ url_for('subject_detail', subject_id=subject.id) }}"> {{ subject.name }} </a>
+
+                <span>
+                    <a href="{{ url_for('edit_subject', subject_id=subject.id) }}">Редактировать</a>
+                    <a href="{{ url_for('delete_subject', subject_id=subject.id) }}">Удалить</a>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Пока нет ни одного предмета</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<section class="profile">
+    <div class="profile-card">
+        <h1 class="profile-title">Обо мне</h1>
+        {% if error %}
+            <p class="auth-error">{{ error }}</p>
+        {% endif %}
+        <h2 class="profile-subtitle">Имя: {{ username }}</h2>
+
+        <p class="profile-text"><strong>Последнее использование:</strong> {{ session_start_date }}</p>
+        <div class="buttons">
+            <a href="{{ url_for('subjects') }}"><button class="profile-btn">Моя сессия</button></a>
+            <a href="{{ url_for('logout') }}"><button class="profile-btn">Выйти</button></a>
+        </div>
+    </div>
+    {% if forecast %}
+        <div class="forecast-block {{ forecast.level }}">
+            <h3>{{ forecast.title }}</h3>
+            <p>{{ forecast.text }}</p>
+
+            {% if precent_of_success is not none %}
+                <span class="forecast-percent">{{ precent_of_success }}% выполнено</span>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+{% endblock %}

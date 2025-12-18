@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Session Navigator{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a class="header-nav-title" href="{{ url_for('index') }}">Session Navigator</a>
+
+        {% if session.get('user_id') %}
+        <div class="nav-right">
+            <a class="header-nav-link" href="{{ url_for('profile') }}">Профиль</a>
+            <a class="header-nav-link" href="{{ url_for('subjects') }}">Моя сессия</a>
+            <a class="header-nav-link" href="{{ url_for('logout') }}">Выйти</a>
+        </div>
+        {% else %}
+        <div class="nav-right">
+            <a class="header-nav-link" href="{{ url_for('login') }}">Вход</a>
+            <a class="header-nav-link" href="{{ url_for('register') }}">Регистрация</a>
+        </div>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main>{% block content %} {% endblock %}</main>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block title %}{{ subject.name }}{% endblock %} {%
+block content %}
+<section class="subject-detail">
+    <h2>{{ subject.name }}</h2>
+
+    {% if tags %}
+        <div class="subject-tags">
+        {% for tag in tags %}
+            <span class="tag">{{ tag }}</span>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <a class="subjects-add" href="{{ url_for('add_task', subject_id=subject.id) }}">+ Добавить задачу</a>
+
+    {% if tasks %}
+        <ul class="tasks-list">
+        {% for task in tasks %}
+            <li class="task {% if task.is_completed %}task-done{% endif %}">
+                <label class="task-item">
+                <input type="checkbox" data-task-id="{{ task.id }}" {% if task.is_completed %}checked{% endif %} />
+
+                <div class="task-info">
+                    <span class="task-title">{{ task.title }}</span>
+                    <span class="task-deadline">Дедлайн: {{ task.deadline }}</span>
+
+                    {% if not task.is_completed %}
+                        <span class="task-days">
+                        {% if task.days_left > 0 %} ⏰ Осталось {{ task.days_left }} дн. 
+                        {%elif task.days_left == 0 %} ‼️ Сегодня дедлайн 
+                        {% else %} 👎Просрочено на {{ -task.days_left }} дн. 
+                        {% endif %}
+                        </span>
+                    {% endif %}
+                </div>
+                </label>
+            </li>
+        {% endfor %}
+        </ul>
+  {% else %}
+      <p>Задач пока нет</p>
+  {% endif %}
+      <a href="{{ url_for('subjects')}}" class="back-link">К списку предметов</a>
+</section>
+
+<!-- этот скрипт честно с гпт, мой уровень джаваскрипт еще не настолько хорош......... -->
+<script>
+  document.querySelectorAll('.task-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const taskId = cb.dataset.taskId;
+
+      fetch(`/tasks/${taskId}/toggle`, {
+        method: 'POST'
+      })
+      .then(() => {
+        cb.closest('.task').classList.toggle('task-done');
+      });
+    });
+  });
+</script>
+{% endblock %}
